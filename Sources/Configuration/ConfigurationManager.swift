@@ -262,7 +262,7 @@ public class ConfigurationManager {
                                                       with: ConfigurationNode.separator)
 
                 // Attempt to deserialize environment variables using the JSON deserializer
-                // only. Resolves: https://github.com/IBM-Swift/Configuration/issues/55
+                // only. Resolves: https://github.com/Kitura-Next/Configuration/issues/55
                 let rawValue = parseStringToObject ? self.deserializeFrom(value, deserializerName: JSONDeserializer.shared.name) : value
                 root[index] = ConfigurationNode(rawValue)
             }
