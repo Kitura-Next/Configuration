@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Classes  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Section/Classes" class="dashAnchor"></a>
+
+    <a title="Classes  Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="index.html">
+          Configuration Docs
+        </a>
+         (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">Configuration Reference</a>
+      <img class="carat" src="img/carat.png" />
+      Classes  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/ConfigurationManager.html">ConfigurationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/ConfigurationManager/Source.html">– Source</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/ConfigurationManager/BasePath.html">– BasePath</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/JSONDeserializer.html">JSONDeserializer</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/PLISTDeserializer.html">PLISTDeserializer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/Deserializer.html">Deserializer</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>Classes</h1>
+            <p>The following classes are available globally.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Configuration0A7ManagerC"></a>
+                    <a name="//apple_ref/swift/Class/ConfigurationManager" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Configuration0A7ManagerC">ConfigurationManager</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A one-stop shop to aggregate configuration properties from different sources, including
+command-line arguments, environment variables, files, URLs and raw objects into a
+single configuration store. Once the store has been populated configuration data
+can be accessed and retrieved for an individual value, or multiple values, resources
+can also be removed.</p>
+<h3 id='usage-example' class='heading'>Usage Example</h3>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">Configuration</span>
+
+<span class="k">let</span> <span class="nv">manager</span> <span class="o">=</span> <span class="kt">ConfigurationManager</span><span class="p">()</span>
+<span class="n">manager</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="nv">file</span><span class="p">:</span> <span class="s">"config.json"</span><span class="p">)</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="o">.</span><span class="n">environmentVariables</span><span class="p">)</span>
+</code></pre>
+
+<p>To get configuration values after they have been loaded, use:</p>
+<pre class="highlight swift"><code><span class="n">manager</span><span class="p">[</span><span class="s">"path:to:configuration:value"</span><span class="p">]</span>
+</code></pre>
+
+<p>The configuration store is represented as a tree, where the path elements in keys are delimited
+by colons (<code>:</code>). The value returned is typed as <code>Any?</code>, therefore it&rsquo;s important to cast the value
+to the type you want to use.</p>
+
+<p>When aggregating configuration data from multiple sources, if the same configuration key
+exists in multiple sources the one most recently loaded will override those loaded earlier.
+In the example below the value for <code>foo</code> is now <code>baz</code> because <code>[&quot;foo&quot;: &quot;baz&quot;]</code> was more recently
+loaded than <code>[&quot;foo&quot;: &quot;bar&quot;]</code>. The same behaviour applies to all other <code>load</code> functions.</p>
+<pre class="highlight swift"><code><span class="n">manager</span><span class="o">.</span><span class="nf">load</span><span class="p">([</span><span class="s">"foo"</span><span class="p">:</span> <span class="s">"bar"</span><span class="p">])</span><span class="o">.</span><span class="nf">load</span><span class="p">([</span><span class="s">"foo"</span><span class="p">:</span> <span class="s">"baz"</span><span class="p">])</span>
+</code></pre>
+
+                        <a href="Classes/ConfigurationManager.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ConfigurationManager</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Configuration16JSONDeserializerC"></a>
+                    <a name="//apple_ref/swift/Class/JSONDeserializer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Configuration16JSONDeserializerC">JSONDeserializer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Default JSON deserializer implementation.</p>
+
+<p>Deserializes JSON formatted data using Foundation&rsquo;s JSONSerialization class.</p>
+
+                        <a href="Classes/JSONDeserializer.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">JSONDeserializer</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Deserializer.html">Deserializer</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Configuration17PLISTDeserializerC"></a>
+                    <a name="//apple_ref/swift/Class/PLISTDeserializer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Configuration17PLISTDeserializerC">PLISTDeserializer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Default PLIST deserializer implementation.</p>
+
+<p>Deserializes PLIST formatted data using Foundation&rsquo;s PropertListSerialization class.</p>
+
+                        <a href="Classes/PLISTDeserializer.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PLISTDeserializer</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Deserializer.html">Deserializer</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-12-12)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

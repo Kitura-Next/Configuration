@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Configuration  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+
+    <a title="Configuration  Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="index.html">
+          Configuration Docs
+        </a>
+         (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">Configuration Reference</a>
+      <img class="carat" src="img/carat.png" />
+      Configuration  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/ConfigurationManager.html">ConfigurationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/ConfigurationManager/Source.html">– Source</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/ConfigurationManager/BasePath.html">– BasePath</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/JSONDeserializer.html">JSONDeserializer</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/PLISTDeserializer.html">PLISTDeserializer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/Deserializer.html">Deserializer</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            
+            <p align="center">
+    <a href="http://kituranext.org/">
+        <img src="https://raw.githubusercontent.com/Kitura-Next/Kitura/master/Sources/Kitura/resources/kitura-bird.svg?sanitize=true" height="100" alt="Kitura">
+    </a>
+</p>
+
+<p align="center">
+    <a href="https://www.kituranext.org/learn/">
+    <img src="https://img.shields.io/badge/docs-kitura-1FBCE4.svg" alt="APIDoc"></a>
+    <a href="https://github.com/Kitura-Next/Configuration/actions?query=workflow%3ASwift+MacOS">
+    <img src="https://github.com/Kitura-Next/Configuration/workflows/Swift%20MacOS/badge.svg"></a>
+    <a href="https://github.com/Kitura-Next/Configuration/actions?query=workflow%3ASwift+Ubuntu">
+    <img src="https://github.com/Kitura-Next/Configuration/workflows/Swift%20Ubuntu/badge.svg"></a>
+    <img src="https://img.shields.io/badge/license-Apache2-blue.svg?style=flat" alt="Apache 2">
+    <a href="http://swift-at-ibm-slack.mybluemix.net/">
+    <img src="http://swift-at-ibm-slack.mybluemix.net/badge.svg" alt="Slack Status"></a>
+</p>
+<h1 id='configuration' class='heading'>Configuration</h1>
+
+<p><code>Configuration</code> is a Swift package for managing application configurations. Using <code>Configuration</code>, an application can easily load and merge configuration data from multiple sources and access them from one central configuration store.</p>
+
+<p><code>Configuration</code> supports configuration keys as paths. That is, a key is a qualified path selector written in the <code>[parent]&lt;separator&gt;[child]</code> syntax. This allows applications to retrieve configuration objects at any level of specificity.</p>
+<h2 id='swift-version' class='heading'>Swift version</h2>
+
+<p>Requires <strong>Swift 5.1</strong> or newer. You can download the Swift binaries by following this <a href="https://swift.org/download/">link</a>.<br>
+Compatibility with other Swift versions is not guaranteed.</p>
+<h2 id='usage' class='heading'>Usage</h2>
+<h3 id='add-dependencies' class='heading'>Add dependencies</h3>
+
+<p>Add <code>Configuration</code> to the dependencies within your application&rsquo;s <code>Package.swift</code> file. Substitute <code>&quot;x.x.x&quot;</code> with the latest <code>Configuration</code> <a href="https://github.com/Kitura-Next/Configuration/releases">release</a>.</p>
+<pre class="highlight swift"><code><span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/Kitura-Next/Configuration.git"</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="s">"x.x.x"</span><span class="p">)</span>
+</code></pre>
+
+<p>Add <code>Configuration</code> to your target&rsquo;s dependencies:</p>
+<pre class="highlight plaintext"><code>.target(name: "example", dependencies: ["Configuration"]),
+</code></pre>
+<h3 id='initialize-configuration' class='heading'>Initialize Configuration</h3>
+
+<p>The core of the <code>Configuration</code> package is the <code><a href="Classes/ConfigurationManager.html">ConfigurationManager</a></code> class. To manage your application&rsquo;s configurations, first create an instance of the <code><a href="Classes/ConfigurationManager.html">ConfigurationManager</a></code> class.</p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">Configuration</span>
+
+<span class="k">let</span> <span class="nv">manager</span> <span class="o">=</span> <span class="kt">ConfigurationManager</span><span class="p">()</span>
+</code></pre>
+
+<p>Using the <code><a href="Classes/ConfigurationManager.html">ConfigurationManager</a></code> instance, you can then load and retrieve configurations:</p>
+<pre class="highlight swift"><code><span class="n">manager</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="nv">file</span><span class="p">:</span> <span class="s">"config.json"</span><span class="p">)</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="o">.</span><span class="n">environmentVariables</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">value</span> <span class="o">=</span> <span class="n">manager</span><span class="p">[</span><span class="s">"path:to:configuration:value"</span><span class="p">]</span>
+</code></pre>
+<h2 id='loading-configuration-data' class='heading'>Loading Configuration Data</h2>
+
+<p><code>Configuration</code> has many methods to load configuration data.</p>
+
+<p><strong>NOTE:</strong> In all cases, configuration key paths are case sensitive.</p>
+<h3 id='from-a-raw-code-any-code-object' class='heading'>From a Raw <code>Any</code> Object</h3>
+<pre class="highlight swift"><code><span class="n">manager</span><span class="o">.</span><span class="nf">load</span><span class="p">([</span>
+    <span class="s">"hello"</span><span class="p">:</span> <span class="s">"world"</span><span class="p">,</span>
+    <span class="s">"foo"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s">"bar"</span><span class="p">:</span> <span class="s">"baz"</span>
+    <span class="p">]</span>
+<span class="p">])</span>
+</code></pre>
+<h3 id='from-command-line-arguments' class='heading'>From Command-line Arguments</h3>
+<pre class="highlight swift"><code><span class="n">manager</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="o">.</span><span class="n">commandLineArguments</span><span class="p">)</span>
+</code></pre>
+
+<p>To inject configurations via the command-line at runtime, set configuration values when launching the executable, like so:</p>
+<pre class="highlight plaintext"><code>./myApp --path.to.configuration=value
+</code></pre>
+
+<p>You can set your preferred argument prefix (default: <code>--</code>) and path separator (default: <code>.</code>) strings when instantiating <code><a href="Classes/ConfigurationManager.html">ConfigurationManager</a></code>.</p>
+<h3 id='from-environment-variables' class='heading'>From Environment Variables</h3>
+<pre class="highlight swift"><code><span class="n">manager</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="o">.</span><span class="n">environmentVariables</span><span class="p">)</span>
+</code></pre>
+
+<p>Then, to use it in your application, set environment variables like so:</p>
+<pre class="highlight plaintext"><code>PATH__TO__CONFIGURATION=value
+</code></pre>
+
+<p>You can set your preferred path separator (default: <code>__</code>) string when instantiating <code><a href="Classes/ConfigurationManager.html">ConfigurationManager</a></code>.</p>
+<h3 id='from-a-code-data-code-object' class='heading'>From a <code>Data</code> Object</h3>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="kt">Data</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">manager</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="n">data</span><span class="p">)</span>
+</code></pre>
+<h3 id='from-a-file' class='heading'>From a File</h3>
+<pre class="highlight swift"><code><span class="n">manager</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="nv">file</span><span class="p">:</span> <span class="s">"/path/to/file"</span><span class="p">)</span>
+</code></pre>
+
+<p>By default, the <code>file</code> argument is a path relative from the location of the executable (i.e., <code>.build/debug/myApp</code>); if <code>file</code> is an absolute path, then it will be treated as such. You can change the relative-from path using the optional <code>relativeFrom</code> parameter, like so:</p>
+<pre class="highlight swift"><code><span class="c1">// Resolve path against PWD</span>
+<span class="n">manager</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="nv">file</span><span class="p">:</span> <span class="s">"../path/to/file"</span><span class="p">,</span> <span class="nv">relativeFrom</span><span class="p">:</span> <span class="o">.</span><span class="n">pwd</span><span class="p">)</span>
+
+<span class="c1">// or</span>
+
+<span class="c1">// Resolve path against a custom path</span>
+<span class="n">manager</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="nv">file</span><span class="p">:</span> <span class="s">"../path/to/file"</span><span class="p">,</span> <span class="nv">relativeFrom</span><span class="p">:</span> <span class="o">.</span><span class="nf">customPath</span><span class="p">(</span><span class="s">"/path/to/somewhere/on/file/system"</span><span class="p">))</span>
+</code></pre>
+
+<p><strong>NOTE:</strong> The following <code>relativeFrom</code> options, <code>.executable</code> (default) and <code>.pwd</code>, will reference different file system locations if the application is run from inside Xcode than if it is run from the command-line. You can set a compiler flag, i.e. <code>-DXCODE</code>, in your <code>xcodeproj</code> and use the flag to change your configuration file loading logic.</p>
+
+<p><strong>NOTE:</strong> Because <code>BasePath.project</code> depends on the existence of a <code>Package.swift</code> file somewhere in a parent folder of the executable, changing its location using <code>swift build --build-path</code> is not supported.</p>
+<h3 id='from-a-code-url-code' class='heading'>From a <code>URL</code></h3>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">url</span> <span class="o">=</span> <span class="kt">URL</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">manager</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="n">url</span><span class="p">)</span>
+</code></pre>
+
+<p><strong>NOTE:</strong> The <code>URL</code> MUST include a scheme, i.e., <code>file://</code>, <code>http://</code>, etc.</p>
+<h3 id='from-multiple-sources' class='heading'>From Multiple Sources</h3>
+
+<p>You can chain these methods to load configuration data from multiple sources all at once. If the same configuration key exists in the multiple sources, the one most recently loaded will override the ones loaded earlier. In this simple example,</p>
+<pre class="highlight swift"><code><span class="n">manager</span><span class="o">.</span><span class="nf">load</span><span class="p">([</span><span class="s">"foo"</span><span class="p">:</span> <span class="s">"bar"</span><span class="p">])</span><span class="o">.</span><span class="nf">load</span><span class="p">([</span><span class="s">"foo"</span><span class="p">:</span> <span class="s">"baz"</span><span class="p">])</span>
+</code></pre>
+
+<p>the value for <code>foo</code> is now <code>baz</code> because <code>[&quot;foo&quot;: &quot;baz&quot;]</code> was more recently loaded than <code>[&quot;foo&quot;: &quot;bar&quot;]</code>. The same behavior applies to all other <code>load</code> functions.</p>
+
+<p><strong>NOTE:</strong> Currently, <code>Configuration</code> only supports JSON and PLIST formats for resources loaded from <code>Data</code>, file, or <code>URL</code>. You can write a <a href="https://kitura-next.github.io/Configuration/Protocols/Deserializer.html">custom deserializer</a> to parse additional formats.</p>
+<h2 id='accessing-configuration-data' class='heading'>Accessing Configuration Data</h2>
+
+<p>To get individual configuration values after they have been loaded, use:</p>
+<pre class="highlight swift"><code><span class="n">manager</span><span class="p">[</span><span class="s">"path:to:configuration"</span><span class="p">]</span>
+</code></pre>
+
+<p>The configuration store is represented as a tree, where the path elements in keys are delimited by colons (<code>:</code>). For instance, the key <code>VCAP_SERVICES:cloudantNoSQLDB:0:credentials:host</code> would traverse into <code>VCAP_SERVICES</code>, <code>cloudantNoSQLDB</code>, array index 0, <code>credentials</code>, and then <code>host</code> to grab the value. Here is a JSON example of the structure:</p>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"VCAP_SERVICES"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"cloudantNoSQLDB"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"credentials"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"host"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;value-goes-here&gt;</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>The value returned is typed as <code>Any?</code>. Therefore, it&rsquo;s important to cast the value to the type you want to use. For instance:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">stringValue</span> <span class="o">=</span> <span class="n">manager</span><span class="p">[</span><span class="s">"VCAP_SERVICES:cloudantNoSQLDB:0:credentials:host"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">String</span>
+</code></pre>
+
+<p>You can also retrieve configuration objects via partial paths; for example, if you use <code>manager[&quot;VCAP_SERVICES:cloudantNoSQLDB:0:credentials&quot;]</code>, the result is a dictionary of the key-values in <code>credentials</code>.</p>
+
+<p>To get all configuration values in the configuration store, use:</p>
+<pre class="highlight swift"><code><span class="n">manager</span><span class="o">.</span><span class="nf">getConfigs</span><span class="p">()</span>
+</code></pre>
+
+<p>The return value is a raw representation of all configuration values currently in the configuration store.</p>
+<h2 id='acknowledgements' class='heading'>Acknowledgements</h2>
+
+<p><code>Configuration</code> was inspired by <a href="https://github.com/indexzero/nconf"><code>nconf</code></a>, a popular NodeJS hierarchical configuration manager.</p>
+<h2 id='api-documentation' class='heading'>API Documentation</h2>
+
+<p>For more information visit our <a href="https://kitura-next.github.io/Configuration/index.html">API reference</a>.</p>
+<h2 id='license' class='heading'>License</h2>
+
+<p>This library is licensed under Apache 2.0. Full license text is available in <a href="https://github.com/Kitura-Next/Configuration/blob/master/LICENSE">LICENSE</a>.</p>
+
+          </div>
+        </section>
+
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-12-12)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
